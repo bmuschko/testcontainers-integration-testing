@@ -19,6 +19,7 @@ dependencies {
 
     testImplementation platform('org.testcontainers:testcontainers-bom:1.16.0')
     testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.slf4j:slf4j-simple:1.7.32'
 }
 
 test {
