@@ -5,22 +5,17 @@
     <packaging>jar</packaging>
 
     <groupId>com.bmuschko</groupId>
-    <artifactId>redis</artifactId>
+    <artifactId>postgresql-database-container</artifactId>
     <version>1.0.0</version>
 
     <properties>
         <jdk.version>11</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jedis.version>3.7.0</jedis.version>
+        <postgresql.version>42.2.24</postgresql.version>
         <junit.jupiter.version>5.8.1</junit.jupiter.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>${jedis.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
