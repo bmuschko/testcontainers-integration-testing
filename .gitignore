@@ -1,5 +1,6 @@
 .DS_Store
 .idea
+out
 build
 target
 .gradle
