@@ -1,6 +1,7 @@
 package com.bmuschko.testcontainers.service;
 
-import com.bmuschko.testcontainers.repository.warehouse.UsernamePasswordCredentials;
+import com.bmuschko.testcontainers.model.warehouse.Product;
+import com.bmuschko.testcontainers.repository.warehouse.db.UsernamePasswordCredentials;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -12,7 +13,7 @@ import org.testcontainers.utility.DockerImageName;
 import java.io.IOException;
 import java.math.BigDecimal;
 
-import static com.bmuschko.testcontainers.repository.warehouse.ProductIndexRepositoryImpl.PRODUCTS_COLLECTION;
+import static com.bmuschko.testcontainers.repository.warehouse.index.ProductIndexRepositoryImpl.PRODUCTS_COLLECTION;
 import static org.testcontainers.containers.Container.ExecResult;
 
 @Testcontainers
@@ -35,8 +36,12 @@ public class WarehouseServiceImplIntegrationTest {
     }
 
     @Test
-    public void testInsertItem() {
-        warehouseService.addProduct("Clock", new BigDecimal(39.99), "Household");
+    public void testInsertProduct() {
+        Product product = new Product();
+        product.setName("Clock");
+        product.setPrice(new BigDecimal(39.99));
+        product.setCategory("Household");
+        warehouseService.addProduct(product);
     }
 
     private String createSolrUrl() {

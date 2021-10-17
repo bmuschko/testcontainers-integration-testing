@@ -1,14 +1,11 @@
 package com.bmuschko.testcontainers.service;
 
-import com.bmuschko.testcontainers.repository.warehouse.Item;
-import com.bmuschko.testcontainers.repository.warehouse.Product;
-import com.bmuschko.testcontainers.repository.warehouse.ProductIndexRepository;
-import com.bmuschko.testcontainers.repository.warehouse.ProductIndexRepositoryImpl;
-import com.bmuschko.testcontainers.repository.warehouse.UsernamePasswordCredentials;
-import com.bmuschko.testcontainers.repository.warehouse.WarehouseDatabaseRepository;
-import com.bmuschko.testcontainers.repository.warehouse.WarehouseDatabaseRepositoryImpl;
-
-import java.math.BigDecimal;
+import com.bmuschko.testcontainers.model.warehouse.Product;
+import com.bmuschko.testcontainers.repository.warehouse.db.UsernamePasswordCredentials;
+import com.bmuschko.testcontainers.repository.warehouse.db.WarehouseDatabaseRepository;
+import com.bmuschko.testcontainers.repository.warehouse.db.WarehouseDatabaseRepositoryImpl;
+import com.bmuschko.testcontainers.repository.warehouse.index.ProductIndexRepository;
+import com.bmuschko.testcontainers.repository.warehouse.index.ProductIndexRepositoryImpl;
 
 public class WarehouseServiceImpl implements WarehouseService {
     private final WarehouseDatabaseRepository warehouseDatabaseRepository;
@@ -20,15 +17,8 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
-    public void addProduct(String name, BigDecimal price, String category) {
-        Item item = new Item();
-        item.setName(name);
-        item.setPrice(price);
-        warehouseDatabaseRepository.insertItem(item);
-
-        Product product = new Product();
-        product.setName(name);
-        product.setCategory(category);
+    public void addProduct(Product product) {
+        warehouseDatabaseRepository.insertProduct(product);
         productIndexRepository.insertProduct(product);
     }
 }

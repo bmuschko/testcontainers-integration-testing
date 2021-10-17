@@ -1,4 +1,6 @@
-package com.bmuschko.testcontainers.repository.warehouse;
+package com.bmuschko.testcontainers.repository.warehouse.db;
+
+import com.bmuschko.testcontainers.model.warehouse.Product;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,7 +20,7 @@ public class WarehouseDatabaseRepositoryImpl implements WarehouseDatabaseReposit
     }
 
     @Override
-    public void insertItem(Item item) {
+    public void insertProduct(Product product) {
         Connection connection = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -26,12 +28,12 @@ public class WarehouseDatabaseRepositoryImpl implements WarehouseDatabaseReposit
         try {
             connection = createConnection();
             pstmt = connection.prepareStatement("INSERT INTO item (name, price) VALUES (?, ?) RETURNING ID");
-            pstmt.setString(1, item.getName());
-            pstmt.setBigDecimal(2, item.getPrice());
+            pstmt.setString(1, product.getName());
+            pstmt.setBigDecimal(2, product.getPrice());
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                item.setId(rs.getLong(1));
+                product.setId(rs.getLong(1));
             }
         } catch (SQLException e) {
             throw new WarehouseDatabaseException("Unable to insert item", e);
@@ -43,11 +45,11 @@ public class WarehouseDatabaseRepositoryImpl implements WarehouseDatabaseReposit
     }
 
     @Override
-    public Item getItem(Long id) {
+    public Product getProduct(Long id) {
         Connection connection = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        Item item = null;
+        Product product = null;
 
         try {
             connection = createConnection();
@@ -56,13 +58,13 @@ public class WarehouseDatabaseRepositoryImpl implements WarehouseDatabaseReposit
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                item = new Item();
-                item.setId(rs.getLong(1));
-                item.setName(rs.getString(2));
-                item.setPrice(rs.getBigDecimal(3));
+                product = new Product();
+                product.setId(rs.getLong(1));
+                product.setName(rs.getString(2));
+                product.setPrice(rs.getBigDecimal(3));
             }
 
-            return item;
+            return product;
         } catch (SQLException e) {
             throw new WarehouseDatabaseException("Unable to insert item", e);
         } finally {

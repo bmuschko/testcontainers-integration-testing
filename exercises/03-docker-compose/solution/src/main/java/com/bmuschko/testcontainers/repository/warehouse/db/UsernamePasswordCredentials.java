@@ -1,4 +1,4 @@
-package com.bmuschko.testcontainers.repository.warehouse;
+package com.bmuschko.testcontainers.repository.warehouse.db;
 
 public class UsernamePasswordCredentials {
     private final String username;

@@ -1,7 +1,7 @@
 package com.bmuschko.testcontainers.service;
 
-import java.math.BigDecimal;
+import com.bmuschko.testcontainers.model.warehouse.Product;
 
 public interface WarehouseService {
-    void addProduct(String name, BigDecimal price, String category);
+    void addProduct(Product product);
 }
