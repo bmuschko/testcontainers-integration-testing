@@ -4,12 +4,11 @@ postgresql:
     - POSTGRES_DB=warehouse
     - POSTGRES_USER=postgres
     - POSTGRES_PASSWORD=postgres
-  ports:
-    - "5432"
   volumes:
      - ./warehouse.sql:/docker-entrypoint-initdb.d/warehouse.sql
 solr:
   image: solr:8.9.0
-  ports:
-    - "8983"
-  command: solr create -c products
+  entrypoint:
+    - bash
+    - "-c"
+    - "exec solr -c -f; exec solr create -c products;"
