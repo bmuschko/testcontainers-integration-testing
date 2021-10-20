@@ -9,7 +9,12 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 @Testcontainers
 public class WarehouseServiceImplIntegrationTest {
@@ -27,7 +32,9 @@ public class WarehouseServiceImplIntegrationTest {
     @BeforeEach
     public void setUp() {
         UsernamePasswordCredentials postgreSqlCredentials = new UsernamePasswordCredentials("postgres", "postgres");
-        warehouseService = new WarehouseServiceImpl(createPostgreSqlUrl(), postgreSqlCredentials, createSolrUrl());
+        String solrUrl = createSolrUrl();
+        createProductsCollection(solrUrl);
+        warehouseService = new WarehouseServiceImpl(createPostgreSqlUrl(), postgreSqlCredentials, solrUrl);
     }
 
     @Test
@@ -45,5 +52,21 @@ public class WarehouseServiceImplIntegrationTest {
 
     private String createSolrUrl() {
         return "http://" + environment.getServiceHost(SOLR_SERVICE_NAME, SOLR_PORT) + ":" + environment.getServicePort(SOLR_SERVICE_NAME, SOLR_PORT) + "/solr";
+    }
+
+    private void createProductsCollection(String solrBaseUrl) {
+        String createCollectionURL = solrBaseUrl + "/admin/collections?action=CREATE&name=products&numShards=1";
+
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder(URI.create(createCollectionURL)).build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() != 200) {
+                throw new IllegalStateException("Cannot set up products collection in Solr: " + new String(response.body().getBytes()));
+            }
+        } catch (IOException | InterruptedException e) {
+            throw new IllegalStateException("Cannot set up products collection in Solr");
+        }
     }
 }

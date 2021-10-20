@@ -4,12 +4,10 @@ import com.bmuschko.testcontainers.model.warehouse.Product;
 import com.bmuschko.testcontainers.repository.warehouse.db.UsernamePasswordCredentials;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.containers.SolrContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.utility.DockerImageName;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URI;
@@ -22,19 +20,14 @@ public class WarehouseServiceImplIntegrationTest {
     private WarehouseService warehouseService;
 
     @Container
-    private final PostgreSQLContainer postgreSQLContainer = (PostgreSQLContainer) new PostgreSQLContainer("postgres:9.6.12")
-            .withInitScript("warehouse.sql")
-            .withDatabaseName("warehouse");
-
-    @Container
-    private final SolrContainer solrContainer = new SolrContainer(DockerImageName.parse("solr:8.9.0"));
+    // Create container
 
     @BeforeEach
     public void setUp() {
-        UsernamePasswordCredentials postgreSqlCredentials = new UsernamePasswordCredentials(postgreSQLContainer.getUsername(), postgreSQLContainer.getPassword());
+        UsernamePasswordCredentials postgreSqlCredentials = new UsernamePasswordCredentials("postgres", "postgres");
         String solrUrl = createSolrUrl();
         createProductsCollection(solrUrl);
-        warehouseService = new WarehouseServiceImpl(postgreSQLContainer.getJdbcUrl(), postgreSqlCredentials, solrUrl);
+        warehouseService = new WarehouseServiceImpl(createPostgreSqlUrl(), postgreSqlCredentials, solrUrl);
     }
 
     @Test
@@ -46,8 +39,12 @@ public class WarehouseServiceImplIntegrationTest {
         warehouseService.addProduct(product);
     }
 
+    private String createPostgreSqlUrl() {
+        return null;
+    }
+
     private String createSolrUrl() {
-        return "http://" + solrContainer.getContainerIpAddress() + ":" + solrContainer.getSolrPort() + "/solr";
+        return null;
     }
 
     private void createProductsCollection(String solrBaseUrl) {
