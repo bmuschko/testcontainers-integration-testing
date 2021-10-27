@@ -2,7 +2,7 @@
 
 In this exercise, you will execute a Testcontainers test suite on a Continuous Integration product. The CI product of choice will be [GitHub Actions](https://github.com/features/actions).
 
-You can choose to run the build using Maven or Gradle. Pick the tool you are most comfortable with.
+> **_NOTE:_** You can choose to run the build using Maven or Gradle. Pick the tool you are most comfortable with.
 
 1. Create a new repository on GitHub. You can give it any name you like.
 2. Follow the instructions in the GitHub repository to create a local repository.
