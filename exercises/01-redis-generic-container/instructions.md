@@ -2,7 +2,7 @@
 
 In this exercise, you will learn how to use Testcontainers to run a Redis database as test fixture managed by a JUnit 5 test class. You can find the initial code in the `start` directory. The production source class under test is named `RedisRepository.java` under the directory `src/main/java`. The test class `RedisRepositoryIntegrationTest.java` under the directory `src/test/java` already implements a test case.
 
-You can choose to run the build using Maven or Gradle. Pick the tool you are most comfortable with.
+> **_NOTE:_** You can choose to run the build using Maven or Gradle. Pick the tool you are most comfortable with.
 
 1. Add the JUnit Jupiter and Testcontainers dependencies. Use the version 5.8.1 for JUnit, use version 1.16.0 for Testcontainers.
 2. To ensure that Testcontainers can log its messages to the console, add a SLF4J implementation as dependency.
