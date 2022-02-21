@@ -32,13 +32,18 @@ jobs:
         with:
           arguments: build
           build-root-directory: exercises/03-multi-container/solution/docker-compose
-      - name: Exercise 4 - Generic On-The-Fly Container
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: build
-          build-root-directory: exercises/04-generic-container/solution/on-the-fly
       - name: Exercise 4 - Generic Prebuilt Container
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
           build-root-directory: exercises/04-generic-container/solution/prebuilt
+      - name: Exercise 4 - Generic Container Built By Dockerfile
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
+          build-root-directory: exercises/04-generic-container/solution/dockerfile
+      - name: Exercise 4 - Generic Container Built By Individual Instructions
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
+          build-root-directory: exercises/04-generic-container/solution/instructions

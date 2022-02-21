@@ -20,7 +20,9 @@ jobs:
         run: cd exercises/03-multi-container/solution/multi-container;./mvnw test
       - name: Exercise 3 - Docker Compose
         run: cd exercises/03-multi-container/solution/docker-compose;./mvnw test
-      - name: Exercise 4 - Generic On-The-Fly Container
-        run: cd exercises/04-generic-container/solution/on-the-fly;./mvnw test
       - name: Exercise 4 - Generic Prebuilt Container
         run: cd exercises/04-generic-container/solution/prebuilt;./mvnw test
+      - name: Exercise 4 - Generic Container Built By Dockerfile
+        run: cd exercises/04-generic-container/solution/dockerfile;./mvnw test
+      - name: Exercise 4 - Generic Container Built By Individual Instructions
+        run: cd exercises/04-generic-container/solution/instructions;./mvnw test
