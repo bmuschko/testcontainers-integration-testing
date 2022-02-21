@@ -12,7 +12,7 @@ repositories {
 
 dependencies {
     implementation 'org.apache.solr:solr-solrj:8.1.0'
-    runtimeOnly 'org.postgresql:postgresql:42.3.2'
+    runtimeOnly 'org.postgresql:postgresql:42.3.3'
 
     def junitJupiterVersion = '5.8.1'
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
