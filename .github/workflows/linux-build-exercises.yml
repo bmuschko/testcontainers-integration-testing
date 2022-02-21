@@ -1,0 +1,38 @@
+name: Build Exercises [Linux]
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Set up Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Set up Docker private registry
+        run: |
+          docker run -d -p 5000:5000 --restart=always --name registry registry:2
+          docker run -d -p 5001:5000 --restart=always --name secure_registry -v "$(pwd)"/src/functTest/resources/auth:/auth:rw -e "REGISTRY_AUTH=htpasswd" -e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" -e "REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd" registry:2
+      - name: Set up Gradle
+        uses: gradle/gradle-build-action@v2
+      - name: Exercise 1 - Redis Generic Container [Gradle]
+        build-root-directory: exercises/01-redis-generic-container/solution
+        run: ./gradlew build
+      - name: Exercise 2 - PostgreSQL Database Container [Gradle]
+        build-root-directory: exercises/02-postgesql-database-container/solution
+        run: ./gradlew build
+      - name: Exercise 3 - Multi-Container [Gradle]
+        build-root-directory: exercises/03-multi-container/solution/multi-container
+        run: ./gradlew build
+      - name: Exercise 3 - Docker Compose [Gradle]
+        build-root-directory: exercises/03-multi-container/solution/docker-compose
+        run: ./gradlew build
+      - name: Exercise 4 - Generic On-The-Fly Container [Gradle]
+        build-root-directory: exercises/04-generic-container/solution/on-the-fly
+        run: ./gradlew build
+      - name: Exercise 4 - Generic Prebuilt Container [Gradle]
+        build-root-directory: exercises/04-generic-container/solution/prebuilt
+        run: ./gradlew build
