@@ -1,9 +1,9 @@
-name: Build Exercises [Linux]
+name: Build Exercises with Gradle [Linux]
 on: [push, pull_request]
 
 jobs:
   build:
-    name: Build
+    name: Build with Gradle
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout
@@ -12,32 +12,32 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Exercise 1 - Redis Generic Container [Gradle]
+      - name: Exercise 1 - Redis Generic Container
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
           build-root-directory: exercises/01-redis-generic-container/solution
-      - name: Exercise 2 - PostgreSQL Database Container [Gradle]
+      - name: Exercise 2 - PostgreSQL Database Container
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
           build-root-directory: exercises/02-postgesql-database-container/solution
-      - name: Exercise 3 - Multi-Container [Gradle]
+      - name: Exercise 3 - Multi-Container
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
           build-root-directory: exercises/03-multi-container/solution/multi-container
-      - name: Exercise 3 - Docker Compose [Gradle]
+      - name: Exercise 3 - Docker Compose
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
           build-root-directory: exercises/03-multi-container/solution/docker-compose
-      - name: Exercise 4 - Generic On-The-Fly Container [Gradle]
+      - name: Exercise 4 - Generic On-The-Fly Container
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
           build-root-directory: exercises/04-generic-container/solution/on-the-fly
-      - name: Exercise 4 - Generic Prebuilt Container [Gradle]
+      - name: Exercise 4 - Generic Prebuilt Container
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build

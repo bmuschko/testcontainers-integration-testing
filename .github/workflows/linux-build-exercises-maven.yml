@@ -1,0 +1,26 @@
+name: Build Exercises with Maven [Linux]
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build with Maven
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Set up Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Exercise 1 - Redis Generic Container
+        run: cd exercises/01-redis-generic-container/solution;./mwnw test
+      - name: Exercise 2 - PostgreSQL Database Container
+        run: cd exercises/02-postgesql-database-container/solution;./mwnw test
+      - name: Exercise 3 - Multi-Container
+        run: cd exercises/03-multi-container/solution/multi-container;./mwnw test
+      - name: Exercise 3 - Docker Compose
+        run: cd exercises/03-multi-container/solution/docker-compose;./mwnw test
+      - name: Exercise 4 - Generic On-The-Fly Container
+        run: cd exercises/04-generic-container/solution/on-the-fly;./mwnw test
+      - name: Exercise 4 - Generic Prebuilt Container
+        run: cd exercises/04-generic-container/solution/prebuilt;./mwnw test
