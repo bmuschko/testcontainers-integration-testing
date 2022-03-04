@@ -1,4 +1,4 @@
-# Integration Testing with Docker and TestContainers
+# Integration Testing with Docker and Testcontainers
 
 The process of developing an application typically involves the work of multiple engineers, and that work is usually broken down into several modules. There is always a risk that modules developed by different engineers will not sync when integrating with each other for use in production. Integration testing helps minimize this risk by enabling better integration of modules. But many organizations struggle with maintaining tests that require more complex setup procedures. As a result, integration tests become flaky and unreliable and require manual intervention. In an automate-all-the-things world, this costs organizations time and money.
 
