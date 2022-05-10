@@ -2,6 +2,7 @@ package com.bmuschko.testcontainers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -15,7 +16,7 @@ public class WarehouseRepositoryIntegrationTest {
     private WarehouseRepository warehouseRepository;
 
     @Container
-    private final PostgreSQLContainer postgreSQLContainer = (PostgreSQLContainer) new PostgreSQLContainer("postgres:9.6.12")
+    private final JdbcDatabaseContainer postgreSQLContainer = new PostgreSQLContainer("postgres:9.6.12")
             .withInitScript("warehouse.sql")
             .withDatabaseName("warehouse");
 
