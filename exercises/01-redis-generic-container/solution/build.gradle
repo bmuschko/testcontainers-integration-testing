@@ -17,7 +17,7 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
 
-    testImplementation platform('org.testcontainers:testcontainers-bom:1.16.3')
+    testImplementation platform('org.testcontainers:testcontainers-bom:1.17.3')
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'org.slf4j:slf4j-simple:1.7.32'
 }
